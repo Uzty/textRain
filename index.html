@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            overflow: hidden;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<canvas id="cas"></canvas>
+
+<script>
+    var cas = document.querySelector("#cas");
+    var ctx = cas.getContext("2d");
+
+    var sw = cas.width = screen.width;
+    var sh = cas.height = screen.height;
+    function radCol() {
+        var r = parseInt(Math.random() * 255);
+        var g = parseInt(Math.random() * 255);
+        var b = parseInt(Math.random() * 255);
+        return "rgb(" + r + "," + g + "," + b + ")";
+    }
+
+    var arr = Array(256).join(0).split("");
+    var tIndex = 0;
+    var txtStr = "☀♀♂❤";
+    var fz = 20;
+    var draw = function(){
+        ctx.fillStyle = "rgba(0,0,0,0.05)";
+        ctx.fillRect(0,0,sw,sh);
+
+        ctx.font = fz-2+"px Arial";
+        arr.map(function(y,i){
+            ctx.fillStyle = radCol();
+            var x = fz*i;
+            tIndex++;
+            tIndex = tIndex>=txtStr.length?0:tIndex;
+
+            ctx.fillText(txtStr[txtStr.length-tIndex-1],x,y);
+            console.log(txtStr[tIndex]);
+            console.log(tIndex);
+            arr[i] = (y>sh+Math.random()*10000)?0:y+fz;
+
+        });
+    };
+    setInterval(draw,33);
+
+
+
+
+</script>
+</body>
+</html>
